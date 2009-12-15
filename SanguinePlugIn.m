@@ -7,6 +7,7 @@
 //
 
 #import "SanguinePlugIn.h"
+#import <MacRuby/MacRuby.h>
 
 #define	kQCPlugIn_Name				@"Sanguine"
 #define	kQCPlugIn_Description		@"Sanguine description"
@@ -130,7 +131,10 @@ Here you need to declare the input / output properties as dynamic as Quartz Comp
 	Called by Quartz Composer when rendering of the composition starts: perform any required setup for the plug-in.
 	Return NO in case of fatal failure (this will prevent rendering of the composition to start).
 	*/
-	
+
+    // DEBUG
+    [[MacRuby sharedRuntime] evaluateString:@"puts 'hi'"];
+
 	return YES;
 }
 
