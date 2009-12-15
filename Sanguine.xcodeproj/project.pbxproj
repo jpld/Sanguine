@@ -50,6 +50,7 @@
 		D8BEA88F10D70CF6006F5EFF /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		D8BEA89010D70D03006F5EFF /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		D8BEA89110D70D0F006F5EFF /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
+		D8BEA89F10D70F5E006F5EFF /* Rakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +93,7 @@
 				D8BEA88F10D70CF6006F5EFF /* README.markdown */,
 				D8BEA89010D70D03006F5EFF /* TODO */,
 				D8BEA89110D70D0F006F5EFF /* CHANGELOG */,
+				D8BEA89F10D70F5E006F5EFF /* Rakefile */,
 				7238D5500DB6988600E9A42D /* Settings.xib */,
 				8D5B49B7048680CD000E48DA /* Info.plist */,
 			);
