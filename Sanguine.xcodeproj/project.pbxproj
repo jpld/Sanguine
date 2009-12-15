@@ -51,6 +51,7 @@
 		D8BEA89010D70D03006F5EFF /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		D8BEA89110D70D0F006F5EFF /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
 		D8BEA89F10D70F5E006F5EFF /* Rakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; };
+		D8BEA8A410D71077006F5EFF /* MacRuby.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MacRuby.framework; path = /Library/Frameworks/MacRuby.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +84,7 @@
 			children = (
 				16BA96300A7EB9AC001E4983 /* Quartz.framework */,
 				1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */,
+				D8BEA8A410D71077006F5EFF /* MacRuby.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
