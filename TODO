@@ -11,4 +11,4 @@ UI SETTINGS
 
 LATER
 [ ] syntax error should report line number?
-[ ] string input port of script?
+[ ] string or URL input port to evaluate?
