@@ -20,45 +20,26 @@
 
 @implementation SanguinePlugIn
 
-/*
-Here you need to declare the input / output properties as dynamic as Quartz Composer will handle their implementation
-@dynamic inputFoo, outputBar;
-*/
-
 + (NSDictionary*)attributes {
-	return [NSDictionary dictionaryWithObjectsAndKeys:SALocalizedString(@"kQCPlugIn_Name", NULL), QCPlugInAttributeNameKey, SALocalizedString(@"kQCPlugIn_Description", NULL), QCPlugInAttributeDescriptionKey, nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:SALocalizedString(@"kQCPlugIn_Name", NULL), QCPlugInAttributeNameKey, SALocalizedString(@"kQCPlugIn_Description", NULL), QCPlugInAttributeDescriptionKey, nil];
 }
 
 + (NSDictionary*)attributesForPropertyPortWithKey:(NSString*)key {
-	/*
-	Specify the optional attributes for property based ports (QCPortAttributeNameKey, QCPortAttributeDefaultValueKey...).
-	*/
-	
-	return nil;
+    // ports are dynamically added, none available by default
+    return nil;
 }
 
 + (QCPlugInExecutionMode)executionMode {
-	/*
-	Return the execution mode of the plug-in: kQCPlugInExecutionModeProvider, kQCPlugInExecutionModeProcessor, or kQCPlugInExecutionModeConsumer.
-	*/
-	
-	return kQCPlugInExecutionModeProcessor;
+    return kQCPlugInExecutionModeProcessor;
 }
 
 + (QCPlugInTimeMode)timeMode {
-	/*
-	Return the time dependency mode of the plug-in: kQCPlugInTimeModeNone, kQCPlugInTimeModeIdle or kQCPlugInTimeModeTimeBase.
-	*/
-	
-	return kQCPlugInTimeModeNone;
+    return kQCPlugInTimeModeNone;
 }
 
 + (NSArray*)plugInKeys {
-	/*
-	Return a list of the KVC keys corresponding to the internal settings of the plug-in.
-	*/
-	
-	return nil;
+    // TODO - code
+    return nil;
 }
 
 #pragma mark -
@@ -66,11 +47,7 @@ Here you need to declare the input / output properties as dynamic as Quartz Comp
 - (id)init {
     self = [super init];
 	if(self) {
-		/*
-		Allocate any permanent resource required by the plug-in.
-		*/
-	}
-	
+	}	
 	return self;
 }
 
