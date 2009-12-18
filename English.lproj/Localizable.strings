@@ -7,4 +7,4 @@
  */
 
 "kQCPlugIn_Name" = "MacRuby";
-"kQCPlugIn_Description" = "This patch executes MacRuby with an arbitrary number of input / output parameters.\n\nhttp://github.com/jpld/Sanguine";
+"kQCPlugIn_Description" = "This patch executes MacRuby with an arbitrary number of input and output parameters.\n\nhttp://github.com/jpld/Sanguine";
