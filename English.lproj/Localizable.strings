@@ -1,0 +1,10 @@
+/* 
+   Localizable.strings
+   Sanguine
+
+   Created by jpld on 17 Dec 2009.
+   Copyright 2009 __MyCompanyName__. All rights reserved.
+ */
+
+"kQCPlugIn_Name" = "MacRuby";
+"kQCPlugIn_Description" = "This patch executes MacRuby with an arbitrary number of input / output parameters.\n\nhttp://github.com/jpld/Sanguine";
