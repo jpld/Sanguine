@@ -9,8 +9,7 @@
 #import "SanguinePlugIn.h"
 #import <MacRuby/MacRuby.h>
 
-#define	kQCPlugIn_Name				@"Sanguine"
-#define	kQCPlugIn_Description		@"Sanguine description"
+#define SALocalizedString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:(nil)]
 
 
 // WORKAROUND - naming violation for cocoa memory management
@@ -27,11 +26,7 @@ Here you need to declare the input / output properties as dynamic as Quartz Comp
 */
 
 + (NSDictionary*)attributes {
-	/*
-	Return a dictionary of attributes describing the plug-in (QCPlugInAttributeNameKey, QCPlugInAttributeDescriptionKey...).
-	*/
-	
-	return [NSDictionary dictionaryWithObjectsAndKeys:kQCPlugIn_Name, QCPlugInAttributeNameKey, kQCPlugIn_Description, QCPlugInAttributeDescriptionKey, nil];
+	return [NSDictionary dictionaryWithObjectsAndKeys:SALocalizedString(@"kQCPlugIn_Name", NULL), QCPlugInAttributeNameKey, SALocalizedString(@"kQCPlugIn_Description", NULL), QCPlugInAttributeDescriptionKey, nil];
 }
 
 + (NSDictionary*)attributesForPropertyPortWithKey:(NSString*)key {
