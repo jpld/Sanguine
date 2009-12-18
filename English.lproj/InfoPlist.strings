@@ -1,0 +1,9 @@
+/* 
+   InfoPlist.strings
+   Sanguine
+
+   Created by jpld on 17 Dec 2009.
+   Copyright 2009 __MyCompanyName__. All rights reserved.
+ */
+
+NSHumanReadableCopyright = "© 2009 XYZZY";
