@@ -19,6 +19,18 @@
 			name = "Build & Copy";
 			productName = "Build & Install";
 		};
+		D873026210DB492D006C316C /* Build & Create Archive */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D873026510DB494B006C316C /* Build configuration list for PBXAggregateTarget "Build & Create Archive" */;
+			buildPhases = (
+				D873026910DB4982006C316C /* Create Archive */,
+			);
+			dependencies = (
+				D873026710DB4969006C316C /* PBXTargetDependency */,
+			);
+			name = "Build & Create Archive";
+			productName = "Build & Create Archive";
+		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -37,6 +49,13 @@
 			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8D5B49AC048680CD000E48DA;
+			remoteInfo = Sanguine;
+		};
+		D873026610DB4969006C316C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 089C1669FE841209C02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D5B49AC048680CD000E48DA /* Sanguine */;
 			remoteInfo = Sanguine;
 		};
 /* End PBXContainerItemProxy section */
@@ -170,6 +189,7 @@
 			targets = (
 				8D5B49AC048680CD000E48DA /* Sanguine */,
 				233E2C640A83C768005A62DF /* Build & Copy */,
+				D873026210DB492D006C316C /* Build & Create Archive */,
 			);
 		};
 /* End PBXProject section */
@@ -201,6 +221,20 @@
 			shellPath = /bin/sh;
 			shellScript = "# This shell script simply copies the built plug-in to \"~/Library/Graphics/Quartz Composer Plug-Ins\" and overrides any previous version at that location\n\nmkdir -p \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins\"\nrm -rf \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins/Sanguine.plugin\"\ncp -rf \"$BUILT_PRODUCTS_DIR/Sanguine.plugin\" \"$USER_LIBRARY_DIR/Graphics/Quartz Composer Plug-Ins/\"\n";
 		};
+		D873026910DB4982006C316C /* Create Archive */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Create Archive";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rake create_archive build_path=\"$BUILT_PRODUCTS_DIR/Sanguine.plugin\" version=\"$PRODUCT_VERSION\"";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -219,6 +253,11 @@
 			isa = PBXTargetDependency;
 			target = 8D5B49AC048680CD000E48DA /* Sanguine */;
 			targetProxy = 233E2C650A83C76D005A62DF /* PBXContainerItemProxy */;
+		};
+		D873026710DB4969006C316C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D5B49AC048680CD000E48DA /* Sanguine */;
+			targetProxy = D873026610DB4969006C316C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -349,6 +388,20 @@
 			};
 			name = Release;
 		};
+		D873026310DB492D006C316C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Build & Create Archive";
+			};
+			name = Debug;
+		};
+		D873026410DB492D006C316C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "Build & Create Archive";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -375,6 +428,15 @@
 			buildConfigurations = (
 				233E2D8A0A83C7AC005A62DF /* Debug */,
 				233E2D8B0A83C7AC005A62DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D873026510DB494B006C316C /* Build configuration list for PBXAggregateTarget "Build & Create Archive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D873026310DB492D006C316C /* Debug */,
+				D873026410DB492D006C316C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
