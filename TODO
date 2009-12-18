@@ -1,0 +1,13 @@
+GENERAL
+[ ] means of defining inputs/outputs, types and names
+[ ] means of defining main execution method
+[ ] starter code content
+[ ] serialize code
+
+UI SETTINGS
+[ ] textview for code (webview?)
+[ ] syntax highlighting
+[ ] line number displayed in gutter
+
+LATER
+[ ] syntax error should report line number?
