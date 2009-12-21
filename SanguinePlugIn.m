@@ -48,8 +48,7 @@
 }
 
 + (NSArray*)plugInKeys {
-    // TODO - code
-    return nil;
+    return [NSArray arrayWithObjects:@"sourceCodeString", nil];
 }
 
 #pragma mark -
@@ -91,7 +90,12 @@
 
     SADebugLogSelector();
 
-    return [super serializedValueForKey:key];
+    id value = nil;
+    if ([key isEqualToString:@"sourceCodeString"])
+        value = self.sourceCodeString;
+    else
+        value = [super serializedValueForKey:key];
+    return value;
 }
 
 - (void)setSerializedValue:(id)serializedValue forKey:(NSString*)key {
@@ -102,7 +106,10 @@
 
     SADebugLogSelector();
 
-    [super setSerializedValue:serializedValue forKey:key];
+    if ([key isEqualToString:@"sourceCodeString"])
+        self.sourceCodeString = [serializedValue stringValue];
+    else
+        [super setSerializedValue:serializedValue forKey:key];
 }
 
 - (QCPlugInViewController*)createViewController {
