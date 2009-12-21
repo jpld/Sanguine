@@ -7,6 +7,7 @@
 //
 
 #import "SanguinePlugIn.h"
+#import "SanguinePlugInViewController.h"
 #import <MacRuby/MacRuby.h>
 
 #if CONFIGURATION == DEBUG
@@ -135,7 +136,7 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
 	You can return a subclass of QCPlugInViewController if necessary.
 	*/
 
-    return [[QCPlugInViewController alloc] initWithPlugIn:self viewNibName:@"Settings"];
+    return [[SanguinePlugInViewController alloc] initWithPlugIn:self viewNibName:@"Settings"];
 }
 
 #pragma mark -
