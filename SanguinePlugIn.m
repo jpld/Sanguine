@@ -20,6 +20,9 @@
 #define SALocalizedString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:(nil)]
 
 static NSString* _SASourceCodeStringObservationContext = @"_SASourceCodeStringObservationContext";
+static NSString* _SACodePrologueString = @"begin;";
+static NSString* _SACodeEpilogueString = @"; rescue Exception => e; $stderr.puts $!.inspect; end;";
+static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs(); Inputs; end; def self.outputs(); Outputs; end; def self.run_main(inputs=nil); main(inputs); end; end;";
 
 
 // WORKAROUND - naming violation for cocoa memory management
@@ -63,7 +66,7 @@ static NSString* _SASourceCodeStringObservationContext = @"_SASourceCodeStringOb
 - (id)init {
     self = [super init];
     if(self) {
-        self.sourceCodeString = @"puts 'hello'\n";
+        // self.sourceCodeString = @"puts 'hello'\n";
         [self _setupObservation];
     }
     return self;
@@ -105,7 +108,8 @@ static NSString* _SASourceCodeStringObservationContext = @"_SASourceCodeStringOb
 
     id value = nil;
     if ([key isEqualToString:@"sourceCodeString"])
-        value = self.sourceCodeString;
+        // TODO - should probably be localized default snippet not a newline
+        value = self.sourceCodeString ? self.sourceCodeString : @"\n";
     else
         value = [super serializedValueForKey:key];
     return value;
@@ -138,8 +142,15 @@ static NSString* _SASourceCodeStringObservationContext = @"_SASourceCodeStringOb
 
 - (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
     if (context == _SASourceCodeStringObservationContext) {
-        // validate
-        // check inputs and outputs
+        // TODO - validate
+        // TODO - check inputs and outputs
+
+        // [[MacRuby sharedRuntime] evaluateString:[NSString stringWithFormat:@"%@ %@ %@", _SACodePrologueString, self.sourceCodeString, _SACodeEpilogueString]];
+        // [[MacRuby sharedRuntime] evaluateString:_SACodeHelperString];
+        // NSArray* inputs = [[MacRuby sharedRuntime] evaluateString:@"SACodeHelper.inputs"];
+        // NSLog(@"%@", inputs);
+        // NSArray* outputs = [[MacRuby sharedRuntime] evaluateString:@"SACodeHelper.outputs"];
+        // NSLog(@"%@", outputs);
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -154,9 +165,6 @@ static NSString* _SASourceCodeStringObservationContext = @"_SASourceCodeStringOb
 	*/
 
     SADebugLogSelector();
-
-    // DEBUG
-    // [[MacRuby sharedRuntime] evaluateString:@"puts 'hi'"];
 
     return YES;
 }
