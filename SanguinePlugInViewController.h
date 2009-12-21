@@ -9,4 +9,5 @@
 #import <Cocoa/Cocoa.h>
 
 @interface SanguinePlugInViewController : QCPlugInViewController {}
+- (IBAction)build:(id)sender;
 @end

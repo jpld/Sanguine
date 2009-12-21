@@ -9,4 +9,8 @@
 #import "SanguinePlugInViewController.h"
 
 @implementation SanguinePlugInViewController
+
+- (IBAction)build:(id)sender {
+}
+
 @end
