@@ -40,6 +40,7 @@
 		8D5B49B4048680CD000E48DA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */; };
 		D873022210DB41A4006C316C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D873022010DB41A4006C316C /* InfoPlist.strings */; };
 		D873023510DB42BE006C316C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D873023310DB42BE006C316C /* Localizable.strings */; };
+		D873047F10DF5FF4006C316C /* SanguinePlugInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D873047E10DF5FF4006C316C /* SanguinePlugInViewController.m */; };
 		D8BEA8BD10D71A18006F5EFF /* MacRuby.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BEA8A410D71077006F5EFF /* MacRuby.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,8 @@
 		8D5B49B7048680CD000E48DA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D873022110DB41A4006C316C /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D873023410DB42BE006C316C /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D873047D10DF5FF4006C316C /* SanguinePlugInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SanguinePlugInViewController.h; sourceTree = "<group>"; };
+		D873047E10DF5FF4006C316C /* SanguinePlugInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SanguinePlugInViewController.m; sourceTree = "<group>"; };
 		D8BEA88F10D70CF6006F5EFF /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
 		D8BEA89010D70D03006F5EFF /* TODO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		D8BEA89110D70D0F006F5EFF /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 			children = (
 				16BA95400A7EB2EB001E4983 /* SanguinePlugIn.h */,
 				16BA95410A7EB2EB001E4983 /* SanguinePlugIn.m */,
+				D873047D10DF5FF4006C316C /* SanguinePlugInViewController.h */,
+				D873047E10DF5FF4006C316C /* SanguinePlugInViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D873047F10DF5FF4006C316C /* SanguinePlugInViewController.m in Sources */,
 				16BA95420A7EB2EB001E4983 /* SanguinePlugIn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
