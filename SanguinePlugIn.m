@@ -19,12 +19,19 @@
 
 #define SALocalizedString(key, comment) [[NSBundle bundleForClass:[self class]] localizedStringForKey:(key) value:@"" table:(nil)]
 
+static NSString* _SASourceCodeStringObservationContext = @"_SASourceCodeStringObservationContext";
+
 
 // WORKAROUND - naming violation for cocoa memory management
 @interface QCPlugIn(CameraObscuraAdditions)
 - (QCPlugInViewController*)createViewController NS_RETURNS_RETAINED;
 @end
 
+
+@interface SanguinePlugIn()
+- (void)_setupObservation;
+- (void)_invalidateObservation;
+@end
 
 @implementation SanguinePlugIn
 
@@ -56,7 +63,9 @@
 - (id)init {
     self = [super init];
     if(self) {
-    }	
+        self.sourceCodeString = @"puts 'hello'\n";
+        [self _setupObservation];
+    }
     return self;
 }
 
@@ -67,6 +76,8 @@
 
     [_sourceCodeString release];
 
+    [self _invalidateObservation];
+
     [super finalize];
 }
 
@@ -76,6 +87,8 @@
 	*/
 
     [_sourceCodeString release];
+
+    [self _invalidateObservation];
 
     [super dealloc];
 }
@@ -107,7 +120,7 @@
     SADebugLogSelector();
 
     if ([key isEqualToString:@"sourceCodeString"])
-        self.sourceCodeString = [serializedValue stringValue];
+        self.sourceCodeString = (NSString*)serializedValue;
     else
         [super setSerializedValue:serializedValue forKey:key];
 }
@@ -123,6 +136,17 @@
 
 #pragma mark -
 
+- (void)observeValueForKeyPath:(NSString*)keyPath ofObject:(id)object change:(NSDictionary*)change context:(void*)context {
+    if (context == _SASourceCodeStringObservationContext) {
+        // validate
+        // check inputs and outputs
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+#pragma mark -
+
 - (BOOL)startExecution:(id<QCPlugInContext>)context {
 	/*
 	Called by Quartz Composer when rendering of the composition starts: perform any required setup for the plug-in.
@@ -132,7 +156,7 @@
     SADebugLogSelector();
 
     // DEBUG
-    [[MacRuby sharedRuntime] evaluateString:@"puts 'hi'"];
+    // [[MacRuby sharedRuntime] evaluateString:@"puts 'hi'"];
 
     return YES;
 }
@@ -174,6 +198,17 @@
 	*/
 
     SADebugLogSelector();
+}
+
+#pragma mark -
+#pragma mark PRIVATE
+
+- (void)_setupObservation {
+    [self addObserver:self forKeyPath:@"sourceCodeString" options:0 context:_SASourceCodeStringObservationContext];
+}
+
+- (void)_invalidateObservation {
+    [self removeObserver:self forKeyPath:@"sourceCodeString"];
 }
 
 @end
