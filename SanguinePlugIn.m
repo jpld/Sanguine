@@ -28,6 +28,8 @@
 
 @implementation SanguinePlugIn
 
+@synthesize sourceCodeString = _sourceCodeString;
+
 + (NSDictionary*)attributes {
     return [NSDictionary dictionaryWithObjectsAndKeys:SALocalizedString(@"kQCPlugIn_Name", NULL), QCPlugInAttributeNameKey, SALocalizedString(@"kQCPlugIn_Description", NULL), QCPlugInAttributeDescriptionKey, nil];
 }
@@ -64,6 +66,8 @@
 	Release any non garbage collected resources created in -init.
 	*/
 
+    [_sourceCodeString release];
+
     [super finalize];
 }
 
@@ -71,6 +75,8 @@
 	/*
 	Release any resources created in -init.
 	*/
+
+    [_sourceCodeString release];
 
     [super dealloc];
 }

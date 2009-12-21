@@ -8,5 +8,9 @@
 
 #import <Quartz/Quartz.h>
 
-@interface SanguinePlugIn : QCPlugIn {}
+@interface SanguinePlugIn : QCPlugIn {
+@private
+    NSString* _sourceCodeString;
+}
+@property (nonatomic, retain) NSString* sourceCodeString;
 @end
