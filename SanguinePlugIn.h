@@ -11,6 +11,8 @@
 @interface SanguinePlugIn : QCPlugIn {
 @private
     NSString* _sourceCodeString;
+    NSArray* _inputPorts;
+    NSArray* _outputPorts;
 }
 @property (nonatomic, retain) NSString* sourceCodeString;
 @end

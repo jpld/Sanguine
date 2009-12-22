@@ -23,7 +23,7 @@
 static NSString* _SASourceCodeStringObservationContext = @"_SASourceCodeStringObservationContext";
 static NSString* _SACodePrologueString = @"begin;";
 static NSString* _SACodeEpilogueString = @"; rescue Exception => e; $stderr.puts $!.inspect; end;";
-static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs(); Inputs; end; def self.outputs(); Outputs; end; def self.run_main(inputs=nil); main(inputs); end; end;";
+// static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs(); Inputs; end; def self.outputs(); Outputs; end; def self.run_main(inputs=nil); main(inputs); end; end;";
 
 
 // WORKAROUND - naming violation for cocoa memory management
@@ -33,6 +33,8 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
 
 
 @interface SanguinePlugIn()
+@property (nonatomic, retain) NSArray* inPorts;
+@property (nonatomic, retain) NSArray* outPorts;
 - (void)_setupObservation;
 - (void)_invalidateObservation;
 - (void)_setupPorts;
@@ -40,7 +42,7 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
 
 @implementation SanguinePlugIn
 
-@synthesize sourceCodeString = _sourceCodeString;
+@synthesize sourceCodeString = _sourceCodeString, inPorts = _inputPorts, outPorts = _outputPorts;
 
 + (NSDictionary*)attributes {
     return [NSDictionary dictionaryWithObjectsAndKeys:SALocalizedString(@"kQCPlugIn_Name", NULL), QCPlugInAttributeNameKey, SALocalizedString(@"kQCPlugIn_Description", NULL), QCPlugInAttributeDescriptionKey, nil];
@@ -80,6 +82,8 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
 	*/
 
     [_sourceCodeString release];
+    [_inputPorts release];
+    [_outputPorts release];
 
     [self _invalidateObservation];
 
@@ -92,6 +96,8 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
 	*/
 
     [_sourceCodeString release];
+    [_inputPorts release];
+    [_outputPorts release];
 
     [self _invalidateObservation];
 
@@ -217,27 +223,36 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
 - (void)_setupPorts {
     [[MacRuby sharedRuntime] evaluateString:[NSString stringWithFormat:@"%@ %@ %@", _SACodePrologueString, self.sourceCodeString, _SACodeEpilogueString]];
     // NB - this only needs to be executed once
-    [[MacRuby sharedRuntime] evaluateString:_SACodeHelperString];
+    // [[MacRuby sharedRuntime] evaluateString:_SACodeHelperString];
 
     id typeSymbol = [[MacRuby sharedRuntime] evaluateString:@":type"];
     id keySymbol = [[MacRuby sharedRuntime] evaluateString:@":key"];
 
-    NSArray* inputs = [[MacRuby sharedRuntime] evaluateString:@"SACodeHelper.inputs"];
-    for (NSDictionary* dict in inputs) {
-        NSString* type = [dict objectForKey:typeSymbol];
-        NSString* key = [dict objectForKey:keySymbol];
-        if (!type || !key)
-            continue;
-        [self addInputPortWithType:type forKey:key withAttributes:nil];
+    NSArray* inputs = [[MacRuby sharedRuntime] evaluateString:@"Sanguine.inputs"];
+    BOOL inputsChanged = ![inputs isEqual:self.inPorts];
+    if (inputsChanged) {
+        for (NSDictionary* dict in self.inPorts)
+            [self removeInputPortForKey:[dict objectForKey:keySymbol]];
+        for (NSDictionary* dict in inputs) {
+            NSString* type = [dict objectForKey:typeSymbol];
+            NSString* key = [dict objectForKey:keySymbol];
+            [self addInputPortWithType:type forKey:key withAttributes:nil];
+        }
+        self.inPorts = inputs;
     }
-    NSArray* outputs = [[MacRuby sharedRuntime] evaluateString:@"SACodeHelper.outputs"];
-    for (NSDictionary* dict in outputs) {
-        NSString* type = [dict objectForKey:typeSymbol];
-        NSString* key = [dict objectForKey:keySymbol];
-        if (!type || !key)
-            continue;
-        [self addOutputPortWithType:type forKey:key withAttributes:nil];
-    }
+
+    NSArray* outputs = [[MacRuby sharedRuntime] evaluateString:@"Sanguine.outputs"];
+    BOOL outputsChanged = ![outputs isEqual:self.outPorts];
+    if (outputsChanged) {
+        for (NSDictionary* dict in self.outPorts)
+            [self removeOutputPortForKey:[dict objectForKey:keySymbol]];
+        for (NSDictionary* dict in outputs) {
+            NSString* type = [dict objectForKey:typeSymbol];
+            NSString* key = [dict objectForKey:keySymbol];
+            [self addOutputPortWithType:type forKey:key withAttributes:nil];
+        }
+        self.outPorts = outputs;
+    }    
 }
 
 @end
