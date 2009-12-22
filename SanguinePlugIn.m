@@ -23,7 +23,7 @@
 static NSString* _SASourceCodeStringObservationContext = @"_SASourceCodeStringObservationContext";
 static NSString* _SACodePrologueString = @"begin;";
 static NSString* _SACodeEpilogueString = @"; rescue Exception => e; $stderr.puts $!.inspect; end;";
-// static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs(); Inputs; end; def self.outputs(); Outputs; end; def self.run_main(inputs=nil); main(inputs); end; end;";
+static NSString* _SACodeHelperString = @"class Sanguine; class << self; attr_accessor :inputs end; class << self; attr_accessor :outputs end; end";
 
 
 // WORKAROUND - naming violation for cocoa memory management
@@ -223,7 +223,7 @@ static NSString* _SACodeEpilogueString = @"; rescue Exception => e; $stderr.puts
 - (void)_setupPorts {
     [[MacRuby sharedRuntime] evaluateString:[NSString stringWithFormat:@"%@ %@ %@", _SACodePrologueString, self.sourceCodeString, _SACodeEpilogueString]];
     // NB - this only needs to be executed once
-    // [[MacRuby sharedRuntime] evaluateString:_SACodeHelperString];
+    [[MacRuby sharedRuntime] evaluateString:_SACodeHelperString];
 
     id typeSymbol = [[MacRuby sharedRuntime] evaluateString:@":type"];
     id keySymbol = [[MacRuby sharedRuntime] evaluateString:@":key"];
