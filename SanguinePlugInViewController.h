@@ -6,7 +6,7 @@
 //  Copyright 2009 __MyCompanyName__. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 
 @interface SanguinePlugInViewController : QCPlugInViewController {}
 - (IBAction)build:(id)sender;

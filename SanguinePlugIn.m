@@ -35,6 +35,7 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
 @interface SanguinePlugIn()
 - (void)_setupObservation;
 - (void)_invalidateObservation;
+- (void)_setupPorts;
 @end
 
 @implementation SanguinePlugIn
@@ -145,13 +146,6 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
     if (context == _SASourceCodeStringObservationContext) {
         // TODO - validate
         // TODO - check inputs and outputs
-
-        // [[MacRuby sharedRuntime] evaluateString:[NSString stringWithFormat:@"%@ %@ %@", _SACodePrologueString, self.sourceCodeString, _SACodeEpilogueString]];
-        // [[MacRuby sharedRuntime] evaluateString:_SACodeHelperString];
-        // NSArray* inputs = [[MacRuby sharedRuntime] evaluateString:@"SACodeHelper.inputs"];
-        // NSLog(@"%@", inputs);
-        // NSArray* outputs = [[MacRuby sharedRuntime] evaluateString:@"SACodeHelper.outputs"];
-        // NSLog(@"%@", outputs);
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -218,6 +212,32 @@ static NSString* _SACodeHelperString = @"; class SACodeHelper; def self.inputs()
 
 - (void)_invalidateObservation {
     [self removeObserver:self forKeyPath:@"sourceCodeString"];
+}
+
+- (void)_setupPorts {
+    [[MacRuby sharedRuntime] evaluateString:[NSString stringWithFormat:@"%@ %@ %@", _SACodePrologueString, self.sourceCodeString, _SACodeEpilogueString]];
+    // NB - this only needs to be executed once
+    [[MacRuby sharedRuntime] evaluateString:_SACodeHelperString];
+
+    id typeSymbol = [[MacRuby sharedRuntime] evaluateString:@":type"];
+    id keySymbol = [[MacRuby sharedRuntime] evaluateString:@":key"];
+
+    NSArray* inputs = [[MacRuby sharedRuntime] evaluateString:@"SACodeHelper.inputs"];
+    for (NSDictionary* dict in inputs) {
+        NSString* type = [dict objectForKey:typeSymbol];
+        NSString* key = [dict objectForKey:keySymbol];
+        if (!type || !key)
+            continue;
+        [self addInputPortWithType:type forKey:key withAttributes:nil];
+    }
+    NSArray* outputs = [[MacRuby sharedRuntime] evaluateString:@"SACodeHelper.outputs"];
+    for (NSDictionary* dict in outputs) {
+        NSString* type = [dict objectForKey:typeSymbol];
+        NSString* key = [dict objectForKey:keySymbol];
+        if (!type || !key)
+            continue;
+        [self addOutputPortWithType:type forKey:key withAttributes:nil];
+    }
 }
 
 @end

@@ -7,10 +7,12 @@
 //
 
 #import "SanguinePlugInViewController.h"
+#import "SanguinePlugIn.h"
 
 @implementation SanguinePlugInViewController
 
 - (IBAction)build:(id)sender {
+    [(SanguinePlugIn*)self.plugIn performSelector:@selector(_setupPorts)];
 }
 
 @end
